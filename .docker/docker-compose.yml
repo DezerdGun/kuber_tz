@@ -1,0 +1,47 @@
+version: '3.3'
+
+services:
+    nginx:
+        image: nginx
+        container_name: tmp_nginx
+        ports:
+            - "80:80"
+        depends_on:
+            - php
+        volumes:
+            - "../:/var/www/html"
+            - "./nginx/conf.d/template.conf:/etc/nginx/conf.d/template.conf"
+
+    php:
+        build:
+            context: ./php
+        container_name: tmp_php
+        volumes:
+            - ../:/var/www/html
+        depends_on:
+            - database_postgres
+
+    database:
+        image: mysql:latest
+        container_name: tmp_mysql
+        ports:
+            - "${DB_PORT}:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root  # directly specify the password here
+            MYSQL_DATABASE: alif
+
+    phpmyadmin:
+        image: phpmyadmin:latest
+        ports:
+            - 9001:80
+        environment:
+            - PMA_ARBITRARY=1
+
+    node:
+        image: node:20
+        container_name: tmp_node
+        working_dir: /var/www/html
+        volumes:
+            - ../:/var/www/html
+            - /var/www/html/node_modules
+        command: npm install --legacy-peer-deps
