@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3'
 
 services:
     nginx:
@@ -19,7 +19,7 @@ services:
         volumes:
             - ../:/var/www/html
         depends_on:
-            - database_postgres
+            - database
 
     database:
         image: mysql:latest
