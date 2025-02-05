@@ -52,21 +52,6 @@ sleep 40  # Измените на sleep 70, 80 или 90 в зависимост
 
 ---
 
-## Настройка почты (Mailhog)
-Настройте `.env` файл:
-```ini
-MAIL_MAILER=smtp
-MAIL_HOST=mailhog
-MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS="hello@example.com"
-MAIL_FROM_NAME="${APP_NAME}"
-```
-
----
-
 ## 7. Установка зависимостей
 ```sh
 composer install
