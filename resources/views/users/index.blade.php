@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="container">
-        <h1>Список пользователей</h1>
+        <h1>Users</h1>
         <table class="table">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Имя</th>
+                <th>Name</th>
                 <th>Email</th>
             </tr>
             </thead>

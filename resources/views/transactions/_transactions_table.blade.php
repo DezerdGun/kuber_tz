@@ -2,9 +2,9 @@
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
-            <th>Дата</th>
-            <th>Описание</th>
-            <th>Сумма</th>
+            <th>Data</th>
+            <th>Descr</th>
+            <th>Sum</th>
         </tr>
         </thead>
         <tbody>

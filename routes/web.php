@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UsersController;
@@ -18,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Главная страница доступна для всех
 Route::get('/', function () {
     return view('welcome');
 });

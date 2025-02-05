@@ -7,9 +7,10 @@ class BalanceController extends Controller
 
     public function index()
     {
-        $user = auth()->user(); // Получение текущего пользователя
-        $balance = $user->balance; // Получение текущего баланса пользователя
-        $transactions = $user->transactions()->latest()->take(5)->get(); // Последние 5 операций
+        $user = auth()->user();
+        $balance = $user->balance;
+        $transactions = $user->transactions()->latest()->take(5)->get();
+
 
         return view('home', compact('balance', 'transactions'));
     }

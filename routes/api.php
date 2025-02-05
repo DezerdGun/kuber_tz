@@ -20,6 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/balance', [BalanceController::class, 'index']);
-
-// Получение истории операций пользователя
 Route::get('/transactions', [TransactionController::class, 'index']);

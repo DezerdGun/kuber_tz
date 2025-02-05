@@ -29,7 +29,6 @@ class ProcessTransactionJob implements ShouldQueue
 
     public function handle()
     {
-        // Логика обработки транзакции
         $user = User::find($this->user);
         if ($this->type === 'deposit') {
             $user->balance += $this->amount;
@@ -37,14 +36,10 @@ class ProcessTransactionJob implements ShouldQueue
             if ($user->balance >= $this->amount) {
                 $user->balance -= $this->amount;
             } else {
-                // Обработка ошибки, если недостаточно средств
             }
         }
 
-        // Сохранение обновленного баланса
         $user->save();
-
-        // Добавление операции
         Transaction::create([
             'user_id' => $user->id,
             'amount' => $this->amount,

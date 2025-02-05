@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\ManageBalance' => $baseDir . '/app/Console/Commands/ManageBalance.php',
+    'App\\Console\\Commands\\ManageUsers' => $baseDir . '/app/Console/Commands/ManageUsers.php',
     'App\\Console\\Commands\\ProcessTransaction' => $baseDir . '/app/Console/Commands/ProcessTransaction.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -19,9 +21,9 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\BalanceController' => $baseDir . '/app/Http/Controllers/BalanceController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
-    'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\TransactionController' => $baseDir . '/app/Http/Controllers/TransactionController.php',
+    'App\\Http\\Controllers\\UsersController' => $baseDir . '/app/Http/Controllers/UsersController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -32,6 +34,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\ValidateSignature' => $baseDir . '/app/Http/Middleware/ValidateSignature.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Jobs\\ProcessBalanceTransaction' => $baseDir . '/app/Jobs/ProcessBalanceTransaction.php',
     'App\\Jobs\\ProcessTransactionJob' => $baseDir . '/app/Jobs/ProcessTransactionJob.php',
     'App\\Models\\Balance' => $baseDir . '/app/Models/Balance.php',
     'App\\Models\\Transaction' => $baseDir . '/app/Models/Transaction.php',

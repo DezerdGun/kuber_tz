@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="my-4">История операций</h1>
+        <h1 class="my-4">List of Transc</h1>
 
         <form method="GET" action="{{ route('transactions') }}" class="mb-4">
             <div class="input-group">
@@ -22,7 +22,7 @@
                 .then(data => {
                     document.getElementById('transactions-table').innerHTML = data;
                 })
-                .catch(error => console.error("Ошибка при обновлении данных:", error));
+                .catch(error => console.error("Error to add:", error));
         }
         setInterval(refreshTransactions, 2000);
     </script>
