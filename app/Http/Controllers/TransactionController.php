@@ -7,24 +7,36 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
         $balance = $user->balance;
-        $transactions = $user->transactions()->latest()->take(5)->get();
 
-        return view('dashboard', compact('balance', 'transactions'));
+        $transactionsQuery = $user->transactions()->orderBy('created_at', 'desc');
+
+        if ($request->has('search')) {
+            $transactionsQuery->where('description', 'like', '%' . $request->search . '%');
+        } else {
+            $transactionsQuery->take(5);
+        }
+
+        $transactions = $transactionsQuery->get();
+
+        return view('transaction', compact('balance', 'transactions')); // Без папки
     }
 
-    public function transactions(Request $request)
+    public function refresh(Request $request)
     {
-        $transactions = Transaction::orderBy('created_at', 'desc')
-            ->when($request->search, function($query) use ($request) {
-                return $query->where('description', 'like', '%' . $request->search . '%');
-            })
-            ->get();
+        $search = $request->get('search');
 
-        return view('transaction', compact('transactions'));
+        $query = Transaction::query();
+        if ($search) {
+            $query->where('description', 'like', '%' . $search . '%');
+        }
+
+        $transactions = $query->orderBy('created_at', 'desc')->get();
+
+        return view('transactions._transactions_table', compact('transactions'));
     }
+
 }

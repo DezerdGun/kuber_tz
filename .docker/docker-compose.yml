@@ -33,7 +33,7 @@ services:
     phpmyadmin:
         image: phpmyadmin:latest
         ports:
-            - 9001:80
+            - 9009:80
         environment:
             - PMA_ARBITRARY=1
 
