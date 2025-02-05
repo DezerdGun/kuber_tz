@@ -1,57 +1,59 @@
-Add the following lines to your hosts file (/etc/hosts in Linux/Mac OS c:\Windows\System32\Drivers\etc\hosts in Windows):
-```
+# Настройка проекта Laravel в Docker
+
+## 1. Добавление в hosts
+Добавьте следующую строку в файл hosts:
+- **Linux / Mac OS**: `/etc/hosts`
+- **Windows**: `c:\Windows\System32\Drivers\etc\hosts`
+
+```sh
 127.0.0.1   dd.local
 ```
-First change to .docker directory
-````
+
+## 2. Запуск Docker
+Перейдите в каталог `.docker`:
+```sh
 cd .docker
-
-Build -> docker-compose up --build
-Stop -> docker-compose down or ctrl + c in --build terminal
-````
-
-
-### MySql
-
-http://localhost:9001
-
-Сервер: database
-
-Пользователь: root
-
-Пароль: root
-
-### Route
-Username/Password: alif/secret
-
-http://dd.local/
-
-```
-if You use Linux and after Route you got 500 error
-uncomment inside cmd.sh 
-```
-#500 error for
-#sudo chmod -R 755 laravel_blog
-#chmod -R o+w laravel/storage
-
-```
-if migrations failed to follow tips
 ```
 
+- **Сборка и запуск контейнеров**:
+```sh
+docker-compose up --build
 ```
-cd cmd.sh
-
-sleep 40 change to sleep 70 80 or 90
-
-it depends on your comp operation system memory
+- **Остановка контейнеров**:
+```sh
+docker-compose down
+# или нажмите Ctrl + C в терминале
 ```
 
+## 3. MySQL
+Доступ к базе данных:
+- **URL**: [http://localhost:9009](http://localhost:9009)
+- **Сервер**: `database`
+- **Пользователь**: `root`
+- **Пароль**: `root`
 
-BIRTHDAY USER КАК ИСПОЛЬЗОВАТЬ СНАЧАЛО НАСТРОИТЬЕ 
+## 4. Доступ к приложению
+- **URL**: [http://dd.local/](http://dd.local/)
+- **Логин / Пароль**: `alif / secret`
 
-.env file
-
+## 5. Ошибка 500 в Linux
+Если при открытии маршрута возникает ошибка 500, раскомментируйте строки в `cmd.sh`:
+```sh
+# sudo chmod -R 755 laravel_blog
+# chmod -R o+w laravel/storage
 ```
+
+## 6. Ошибки миграций
+Если миграции зависают, увеличьте задержку в `cmd.sh`:
+```sh
+sleep 40  # Измените на sleep 70, 80 или 90 в зависимости от производительности системы
+```
+
+---
+
+## Настройка почты (Mailhog)
+Настройте `.env` файл:
+```ini
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
@@ -62,18 +64,110 @@ MAIL_FROM_ADDRESS="hello@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
+---
 
-
-
-
-
-Здесь я покажу вам, как настроить команду задания cron на сервере. вам нужно установить crontab на сервер. если вы используете сервер Ubuntu, то он уже установлен
+## 7. Установка зависимостей
+```sh
+composer install
+npm install
 ```
-crontab -e
-```
-Теперь добавьте следующую строку в файл crontab. убедитесь, что вам нужно правильно указать путь к проекту
 
+## 8. Настройка `.env`
+Скопируйте шаблон `.env.example` в `.env`:
+```sh
+cp .env.example .env
 ```
-php artisan schedule:run
+Настройте подключение к БД:
+```ini
+DB_CONNECTION=mysql  # Или pgsql
+DB_HOST=127.0.0.1
+DB_PORT=3306  # Или 5432 для PostgreSQL
+DB_DATABASE=your_db
+DB_USERNAME=your_user
+DB_PASSWORD=your_password
+```
+
+## 9. Генерация ключа приложения
+```sh
+php artisan key:generate
+```
+
+## 10. Миграции и начальное заполнение БД
+```sh
+php artisan migrate --seed
+```
+
+## 11. Запуск сервера Laravel
+```sh
+php artisan serve
+```
+
+---
+
+# Основные команды
+
+## Добавление пользователя
+```sh
+php artisan users:create {name} {email} {password}
+```
+**Пример:**
+```sh
+php artisan users:create "SJortan" SH@example.com secret123
+```
+
+## Операции с балансом
+```sh
+php artisan transactions:add {email} {amount} {type} {description}
+```
+- `email` – почта пользователя
+- `amount` – сумма
+- `type` – `deposit` (начисление) или `withdrawal` (списание)
+- `description` – описание
+
+**Пример:**
+```sh
+php artisan transactions:add SH@example.com 500 deposit "Бонус за регистрацию"
+```
+> ⚠ **Баланс не может уходить в минус!**
+
+---
+
+## Очереди (Laravel Queues)
+Для обработки фоновых задач запустите воркер:
+```sh
+php artisan queue:work
+```
+
+---
+
+# API
+
+## Авторизация
+**POST /api/login**  
+**Пример запроса:**
+```json
+{
+    "email": "SH@example.com",
+    "password": "secret123"
+}
+```
+
+## Получение текущего баланса
+**GET /api/balance**
+
+## Получение истории операций
+**GET /api/transactions**
+
+---
+
+# Frontend (Vue 3)
+
+## Запуск проекта
+```sh
+npm run dev
+```
+Если используется Laravel Mix:
+```sh
+npm run watch
 ```
 
