@@ -1,17 +1,28 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index()
     {
-        $user = auth()->user(); // Получение текущего пользователя
-        $balance = $user->balance; // Получение текущего баланса пользователя
-        $transactions = $user->transactions()->latest()->take(5)->get(); // Последние 5 операций
-
-        return view('home', compact('balance', 'transactions'));
+        return view('home');
     }
 }

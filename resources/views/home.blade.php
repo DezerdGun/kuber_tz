@@ -1,12 +1,23 @@
-<!-- resources/views/home.blade.php -->
+@extends('layouts.app')
 
-<h1>Добро пожаловать, {{ auth()->user()->name }}</h1>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
-<h2>Текущий баланс: {{ $balance }}</h2>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-<h3>Последние 5 операций:</h3>
-<ul>
-    @foreach ($transactions as $transaction)
-        <li>{{ $transaction->description }} - {{ $transaction->amount }} - {{ $transaction->created_at }}</li>
-    @endforeach
-</ul>
+                    {{ __('You are logged in!') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
